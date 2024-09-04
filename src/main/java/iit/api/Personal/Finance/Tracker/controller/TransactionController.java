@@ -2,32 +2,42 @@ package iit.api.Personal.Finance.Tracker.controller;
 
 import iit.api.Personal.Finance.Tracker.entity.Transaction;
 import iit.api.Personal.Finance.Tracker.service.TransactionService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.servlet.ModelAndView;
 
-//@Controller
-@RestController
-@RequestMapping("/v1")
+@Controller
+@RequestMapping("/trans")
 public class TransactionController {
 
     @Autowired
     private TransactionService transactionService;
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-        List<Transaction> transactions = transactionService.getAllTransactions();
-        model.addAttribute("transactions", transactions);
-        return "dashboard";
+    public String dashboard(@RequestParam("email") String email, Model model) {
+        if (email == null || email.isEmpty()) {
+            return "redirect:/auth/login";
+        }
+        model.addAttribute("email", email);
+        return "finance-dashboard";
     }
 
-    @GetMapping("/transaction-entry")
+//    @GetMapping("/dashboard")
+//    public String dashboard(Model model) {
+//        List<Transaction> transactions = transactionService.getAllTransactions();
+//        model.addAttribute("transactions", transactions);
+//        return "dashboard";
+//    }
+
+    @RequestMapping("/transaction-entry")
     public String transactionEntryForm(Model model) {
-        model.addAttribute("transaction", new Transaction());
-        return "transaction-entry";
+//        model.addAttribute("transaction", new Transaction());
+        return "finance-transaction-entry";
     }
 
     @PostMapping("/add-transaction")
@@ -36,9 +46,5 @@ public class TransactionController {
         return "redirect:/dashboard";
     }
 
-    @GetMapping("/name")
-    public String getName() {
-        return "TransactionController";
-    }
 }
 

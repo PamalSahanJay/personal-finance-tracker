@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Register</h1>
-<form th:action="@{/register}" method="post">
+<form th:action="@{createUser}" method="post">
     <div>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username"/>
@@ -20,5 +20,10 @@
     </div>
     <button type="submit">Register</button>
 </form>
+
+<div th:if="${param.error}">
+    <p>Error is occurred while registering the User... </p>
+</div>
+
 </body>
 </html>

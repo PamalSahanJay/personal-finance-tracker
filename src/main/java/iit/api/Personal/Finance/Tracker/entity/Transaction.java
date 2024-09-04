@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Transaction {
@@ -19,7 +20,7 @@ public class Transaction {
     private String description;
 
     @NotNull
-    private LocalDateTime transactionDate;
+    private Date transactionDate;
 
     @NotNull
     private String type;  // INCOME or EXPENSE
@@ -28,6 +29,5 @@ public class Transaction {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    // Getters and Setters
 }
 

@@ -16,6 +16,5 @@ public class Category {
     @Column(nullable = false)
     private String type; // INCOME or EXPENSE
 
-    // Getters and Setters
 }
 
