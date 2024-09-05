@@ -22,5 +22,13 @@ public class TransactionService {
     public void saveTransaction(Transaction transaction) {
         transactionRepository.save(transaction);
     }
+
+    public List<Transaction> findAll() {
+        return transactionRepository.findAll();
+    }
+
+    public void deleteTransaction(Long id) {
+        transactionRepository.deleteById(id);
+    }
 }
 

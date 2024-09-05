@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/trans")
@@ -43,7 +44,7 @@ public class TransactionController {
     }
 
     @RequestMapping("/category-entry")
-    public String categoryEntryForm( Model model) {
+    public String categoryEntryForm(Model model) {
         return "finance-category-entry";
     }
 
@@ -61,7 +62,7 @@ public class TransactionController {
 
         BigDecimal amount = new BigDecimal(amountStr);
 
-        Date transactionDate=null;
+        Date transactionDate = null;
         try {
             transactionDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
         } catch (ParseException e) {
@@ -86,6 +87,26 @@ public class TransactionController {
     }
 
 
+    @GetMapping("/showAllTransaction")
+    public String showAllTransaction(Model model, HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        if (email == null) {
+            return "redirect:/auth/login?sessionExpiration";
+        }
+        List<Transaction> transactions = transactionService.findAll();
+        model.addAttribute("transactions", transactions);
+        return "show-all-transaction";
+    }
 
+    @PostMapping("/deleteTransaction/{id}")
+    public String deleteTransaction(@PathVariable Long id, RedirectAttributes redirectAttributes, HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        if (email == null) {
+            return "redirect:/auth/login?sessionExpiration";
+        }
+        transactionService.deleteTransaction(id);
+        redirectAttributes.addFlashAttribute("message", "Transaction deleted successfully");
+        return "redirect:/trans/showAllTransaction";
+    }
 }
 
