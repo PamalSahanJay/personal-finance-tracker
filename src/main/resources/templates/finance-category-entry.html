@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Categories</title>
+</head>
+<body>
+<h1>Add Category</h1>
+<form th:action="@{/category/add-category}" method="post">
+    <div>
+        <label for="name">Category Name:</label>
+        <input type="text" id="name" name="name"/>
+    </div>
+    <div>
+        <label for="type">Category Type:</label>
+        <select id="type" name="type">
+            <option value="INCOME">Income</option>
+            <option value="EXPENSE">Expense</option>
+        </select>
+    </div>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

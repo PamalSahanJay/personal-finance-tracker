@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<h1>Dashboard</h1>
+<p>Your email: <span th:text="${email}"></span></p>
+
+<div>
+    <button onclick="window.location.href='trans/transaction-entry'">Add Transaction</button>
+</div>
+<div>
+    <button onclick="window.location.href='trans/category-entry'">Add Category</button>
+</div>
+<div th:if="${param.successTransaction}">
+    <p>Transaction was success </p>
+</div>
+<div th:if="${param.errorTransaction}">
+    <p>Transaction was failed </p>
+</div>
+</body>
+</html>

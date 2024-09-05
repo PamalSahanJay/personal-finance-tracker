@@ -2,8 +2,11 @@ package iit.api.Personal.Finance.Tracker.entity;
 
 
 import jakarta.persistence.*;
+import java.util.List;
+import lombok.Data;
 
 @Entity
+@Data
 public class User {
 
     @Id
@@ -19,13 +22,8 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    public void setPassword(String encode) {
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
 
-    public CharSequence getPassword() {
-        return null;
-    }
-
-    // Getters and Setters
 }
 
