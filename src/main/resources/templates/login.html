@@ -21,7 +21,10 @@
     <p>Registration success.. Please login </p>
 </div>
 <div th:if="${param.error}">
-    <p>Invalid login credentials.. Please login again </p>
+    <p>Invalid login credentials.. Please login </p>
+</div>
+<div th:if="${param.sessionExpiration}">
+    <p>Session was expired.. Please login </p>
 </div>
 </body>
 </html>

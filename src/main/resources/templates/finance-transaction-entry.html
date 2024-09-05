@@ -2,10 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Transaction</title>
+    <script>
+        function updateCategories() {
+            var typeSelect = document.getElementById("type");
+            var categorySelect = document.getElementById("category");
+            var selectedType = typeSelect.value;
+
+            // Fetch categories from the server
+            fetch(`/category/getByType?type=${selectedType}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear existing options
+                    categorySelect.innerHTML = "";
+
+                    // Populate categories based on the response
+                    data.forEach(function(arg) {
+                        var option = document.createElement("option");
+                        option.value = arg.name;
+                        option.text = arg.name.charAt(0) + arg.name.slice(1).toLowerCase();
+                        categorySelect.appendChild(option);
+                    });
+                });
+        }
+        window.onload = function() {
+            updateCategories();
+        };
+    </script>
 </head>
 <body>
 <h1>Add Transaction</h1>
-<form >
+<p>Your email: <span th:text="${email}"></span></p>
+
+<form th:action="@{/trans/add-transaction}" method="post" >
     <div>
         <label for="amount">Amount:</label>
         <input type="text" id="amount" name="amount"/>
@@ -20,26 +48,19 @@
     </div>
     <div>
         <label for="type">Type:</label>
-        <select id="type">
-            <option value="INCOME">Income</option>
+        <select id="type" name="type" onchange="updateCategories()">
+            <option value="INCOME" selected >Income</option>
             <option value="EXPENSE">Expense</option>
         </select>
     </div>
     <div>
-        <label for="category">Category:</label>
-        <select id="category">
-            <option value="SALARY">Salary</option>
-            <option value="RENT">Rent</option>
-            <option value="GROCERY">Grocery</option>
-            <option value="UTILITIES">Utilities</option>
-            <option value="INSURANCE">Insurance</option>
-            <option value="MEDICAL">Medical</option>
-            <option value="TRANSPORTATION">Transportation</option>
-            <option value="ENTERTAINMENT">Entertainment</option>
-            <option value="OTHERS">Others</option>
-        </select>
+        <div>
+            <label for="category">Category:</label>
+            <select id="category" name="category">
+            </select>
+        </div>
     </div>
-    <button type="submit">Add Transaction</button>
+    <button type="submit">Save</button>
 </form>
 </body>
 </html>

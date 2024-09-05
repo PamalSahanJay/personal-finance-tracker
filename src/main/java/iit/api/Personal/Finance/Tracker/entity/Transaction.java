@@ -6,8 +6,11 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import lombok.Data;
 
 @Entity
+@Data
 public class Transaction {
 
     @Id
@@ -26,7 +29,11 @@ public class Transaction {
     private String type;  // INCOME or EXPENSE
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
 }

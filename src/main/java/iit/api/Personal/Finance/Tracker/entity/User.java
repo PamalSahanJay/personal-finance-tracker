@@ -2,17 +2,12 @@ package iit.api.Personal.Finance.Tracker.entity;
 
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Data;
 
 @Entity
 @Data
 public class User {
-    public User(Long id, String username, String password, String email) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +22,8 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    public User() {
-
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
 
 }
 
