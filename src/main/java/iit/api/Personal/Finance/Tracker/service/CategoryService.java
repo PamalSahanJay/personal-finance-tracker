@@ -1,6 +1,7 @@
 package iit.api.Personal.Finance.Tracker.service;
 
 import iit.api.Personal.Finance.Tracker.entity.Category;
+import iit.api.Personal.Finance.Tracker.entity.Transaction;
 import iit.api.Personal.Finance.Tracker.repository.CategoryRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,13 @@ public class CategoryService {
 
     public Category findByName(String category) {
         return categoryRepository.findByName(category);
+    }
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
+    }
+
+    public void deleteTransaction(Long id) {
+        categoryRepository.deleteById(id);
     }
 }

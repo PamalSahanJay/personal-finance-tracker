@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Transaction</title>
+</head>
+<body>
+<h1>All Transactions</h1>
+<p>Your email: <span th:text="${email}"></span></p>
+<table>
+    <thead>
+    <tr>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaction : ${transactions}">
+        <td th:text="${transaction.amount}"></td>
+        <td th:text="${transaction.description}"></td>
+        <td th:text="${#dates.format(transaction.transactionDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${transaction.type}"></td>
+        <td th:text="${transaction.category.name}"></td>
+        <td>
+            <form th:action="@{/trans/deleteTransaction/{id}(id=${transaction.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
