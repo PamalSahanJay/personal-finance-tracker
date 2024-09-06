@@ -3,10 +3,16 @@ package iit.api.Personal.Finance.Tracker.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "transactions")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

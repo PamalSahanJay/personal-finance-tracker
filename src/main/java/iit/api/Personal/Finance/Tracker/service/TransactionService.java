@@ -30,5 +30,9 @@ public class TransactionService {
     public void deleteTransaction(Long id) {
         transactionRepository.deleteById(id);
     }
+
+    public List<Transaction> findByEmail(Long id) {
+        return transactionRepository.findByUserId(id);
+    }
 }
 
