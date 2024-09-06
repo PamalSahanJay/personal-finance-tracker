@@ -2,6 +2,7 @@ package iit.api.Personal.Finance.Tracker.controller;
 
 import iit.api.Personal.Finance.Tracker.entity.Category;
 import iit.api.Personal.Finance.Tracker.entity.Transaction;
+import iit.api.Personal.Finance.Tracker.entity.User;
 import iit.api.Personal.Finance.Tracker.service.CategoryService;
 import iit.api.Personal.Finance.Tracker.service.TransactionService;
 import iit.api.Personal.Finance.Tracker.service.UserService;
@@ -93,7 +94,9 @@ public class TransactionController {
         if (email == null) {
             return "redirect:/auth/login?sessionExpiration";
         }
-        List<Transaction> transactions = transactionService.findAll();
+        model.addAttribute("email", email);
+        User user = userService.findByEmail(email);
+        List<Transaction> transactions = transactionService.findByEmail(user.getId());
         model.addAttribute("transactions", transactions);
         return "show-all-transaction";
     }
